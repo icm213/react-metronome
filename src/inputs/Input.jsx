@@ -4,12 +4,12 @@ export function Input(props) {
   return (
     <div>
       <input
-        onChange={props.setBeatsPerMinute}
-        type="range"
-        value={props.tempo}
-        name="tempo"
-        min="30"
-        max="330"
+        onChange={props.handleChange}
+        type={props.type}
+        value={props.value}
+        name={props.name}
+        min={props.min}
+        max={props.max}
       ></input>
     </div>
   );

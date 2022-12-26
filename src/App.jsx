@@ -14,7 +14,14 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Input setBeatsPerMinute={setBeatsPerMinute} tempo={tempo} />
+        <Input
+          handleChange={setBeatsPerMinute}
+          value={tempo}
+          type="range"
+          min="30"
+          max="330"
+          name="setTempo"
+        />
         <Tempo tempo={tempo} />
         <Beat tempo={tempo} />
       </header>
