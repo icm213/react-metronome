@@ -1,4 +1,6 @@
 import React from "react";
+import { Input } from "../inputs/Input";
+import { Button } from "../buttons/Button";
 import "./Beat.scss";
 
 export function Beat(props) {
@@ -9,6 +11,7 @@ export function Beat(props) {
   const [count, setCount] = React.useState(0);
 
   function runMetronome() {
+    setCount((prevC) => (prevC = 0));
     setStart((prevRun) => !prevRun);
     setDisplay((prevD) => (prevD = true));
   }
@@ -61,16 +64,16 @@ export function Beat(props) {
   return (
     <div>
       <div className="beat--btn--container">{beatButtons}</div>
-      <button onClick={runMetronome}>{start ? "stop" : "start"}</button>
+      <Button handleClick={runMetronome} value={start ? "stop" : "start"} />
       <label htmlFor="beatBtnsLength">beats: {beatLength}</label>
-      <input
-        name="beatBtnsLength"
-        onChange={pasteBeatBtns}
+      <Input
+        handleChange={pasteBeatBtns}
         type="range"
         value={beatLength}
+        name="beatBtnsLength"
         min="1"
         max="16"
-      ></input>
+      />
     </div>
   );
 }
