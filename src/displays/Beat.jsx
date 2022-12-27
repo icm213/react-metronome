@@ -1,7 +1,9 @@
 import React from "react";
 import { Input } from "../inputs/Input";
 import { Button } from "../buttons/Button";
+import { BeatContainer } from "./BeatContainer";
 import "./Beat.scss";
+import sound from "../sounds/ping-82822.wav";
 
 export function Beat(props) {
   const [start, setStart] = React.useState(false);
@@ -12,8 +14,12 @@ export function Beat(props) {
 
   function runMetronome() {
     setCount((prevC) => (prevC = 0));
-    setStart((prevRun) => !prevRun);
+    setStart((prevRun) => (prevRun = !prevRun));
     setDisplay((prevD) => (prevD = true));
+  }
+
+  function playSound() {
+    new Audio(sound).play();
   }
 
   function pasteBeatBtns(event) {
@@ -27,7 +33,9 @@ export function Beat(props) {
 
   React.useEffect(() => {
     if (start) {
+      playSound();
       const interval = setInterval(() => {
+        playSound();
         setCount((prevC) => {
           prevC = prevC + 1;
           if (prevC >= beatLength) {
@@ -35,7 +43,6 @@ export function Beat(props) {
           }
           return prevC;
         });
-
         setDisplay((prevD) => !prevD);
       }, 60000 / props.tempo);
       return () => clearInterval(interval);
@@ -51,8 +58,6 @@ export function Beat(props) {
     }
   }, [start, display, props.tempo]);
 
-  console.log(count);
-
   const beatButtons = beatBtn.map((btn, idx) => (
     <div key={idx} className="beat">
       {start && display && idx === count && (
@@ -62,9 +67,13 @@ export function Beat(props) {
   ));
 
   return (
-    <div>
-      <div className="beat--btn--container">{beatButtons}</div>
-      <Button handleClick={runMetronome} value={start ? "stop" : "start"} />
+    <div className="beat--container">
+      <BeatContainer beatButtons={beatButtons} />
+      <Button
+        className="start--btn"
+        handleClick={runMetronome}
+        value={start ? "stop" : "start"}
+      />
       <label htmlFor="beatBtnsLength">beats: {beatLength}</label>
       <Input
         handleChange={pasteBeatBtns}

@@ -1,5 +1,10 @@
 import React from "react";
 
 export function Button(props) {
-  return <button onClick={props.handleClick}> {props.value}</button>;
+  return (
+    <button className={props.className} onClick={props.handleClick}>
+      {" "}
+      {props.value}
+    </button>
+  );
 }
