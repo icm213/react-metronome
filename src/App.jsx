@@ -14,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <label htmlFor="setTempo">Beats per Minute:</label>
         <Input
           handleChange={setBeatsPerMinute}
           value={tempo}
